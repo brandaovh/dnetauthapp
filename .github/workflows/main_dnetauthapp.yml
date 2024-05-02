@@ -37,13 +37,13 @@ jobs:
         run: dotnet tool install --global dotnet-ef
 
       - name: Drop database
-        run: dotnet ef database drop -f --connection "${{ secrets.DB_CONNECTION_STRING }}" --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
+        run: dotnet ef database drop -f --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
 
       - name: Add initial migration
-        run: dotnet ef migrations add initial --connection "${{ secrets.DB_CONNECTION_STRING }}" --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
+        run: dotnet ef migrations add initial --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
 
       - name: Execute EF Core migrations
-        run: dotnet ef database update --connection "${{ secrets.DB_CONNECTION_STRING }}" --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
+        run: dotnet ef database update --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
