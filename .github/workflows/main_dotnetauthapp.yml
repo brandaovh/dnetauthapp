@@ -29,7 +29,7 @@ jobs:
         run: cd ContactManager
 
       - name: Downloading CodeGenerator
-        run: dotnet add ContactManager/ContactManager.csproj package Microsoft.VisualStudio.Web.CodeGeneration.Design -Version 7.0.3
+        run: dotnet add ContactManager/ContactManager.csproj package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 7.0.3
 
       - name: Installing CodeGenerator
         run: dotnet tool install -g dotnet-aspnet-codegenerator
