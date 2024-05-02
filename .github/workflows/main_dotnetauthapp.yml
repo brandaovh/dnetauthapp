@@ -25,8 +25,11 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
+      - name: Navigate to project directory
+        run: cd ContactManager
+
       - name: Downloading CodeGenerator
-        run: dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+        run: dotnet add ContactManager/ContactManager.csproj package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
       - name: Installing CodeGenerator
         run: dotnet tool install -g dotnet-aspnet-codegenerator
