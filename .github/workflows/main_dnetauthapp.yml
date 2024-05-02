@@ -36,6 +36,9 @@ jobs:
       - name: Install EF Core CLI
         run: dotnet tool install --global dotnet-ef
 
+      - name: Move to project directory
+        run: cd home/runner/work/dnetauthapp/dnetauthapp/ContactManager
+
       - name: Drop database
         run: dotnet ef database drop -f --connection "${{ secrets.DB_CONNECTION_STRING }}"
 
