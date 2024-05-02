@@ -25,18 +25,6 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: Downloading CodeGenerator
-        run: dotnet add ContactManager/ContactManager.csproj package Microsoft.VisualStudio.Web.CodeGeneration.Design
-
-      - name: Installing CodeGenerator
-        run: dotnet tool install -g dotnet-aspnet-codegenerator
-
-      - name: Drop database
-        run: dotnet ef migrations add initial
-
-      - name: Update database
-        run: dotnet ef database update
-
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
