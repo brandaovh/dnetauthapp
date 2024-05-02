@@ -39,14 +39,14 @@ jobs:
           dotnet tool restore
 
       - name: Drop database
-        run: dotnet ef database drop -f -p ContactManager --connection '${{ secrets.DB_CONNECTION_STRING }}'
+        run: dotnet ef database drop -f -p ContactManager
 
       - name: Add initial migration
-        run: dotnet ef migrations add initial -p ContactManager --connection '${{ secrets.DB_CONNECTION_STRING }}'
+        run: dotnet ef migrations add initial -p ContactManager
 
       - name: Execute EF Core migrations
-        run: dotnet ef database update -p ContactManager --connection '${{ secrets.DB_CONNECTION_STRING }}'
-
+        run: dotnet ef database update -p ContactManager
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
