@@ -31,12 +31,6 @@ jobs:
       - name: Installing CodeGenerator
         run: dotnet tool install -g dotnet-aspnet-codegenerator
 
-      - name: Navigate to project directory
-        run: cd home/runner/work/dnetauthapp/dnetauthapp/ContactManager
-
-      - name: Scaffold Models
-        run: dotnet-aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
-
       - name: Drop database
         run: dotnet ef migrations add initial
 
