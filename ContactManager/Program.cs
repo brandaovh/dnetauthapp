@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? throw new InvalidOperationException("Environment variable 'DB_CONNECTION_STRING' not found.");
+
+builder.Services.AddDbContext<MyDatabaseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DB_CONNECTION_STRING")));
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
