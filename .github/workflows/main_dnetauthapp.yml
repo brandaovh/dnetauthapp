@@ -25,9 +25,6 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: Navigate to project directory
-        run: cd ContactManager
-
       - name: Downloading CodeGenerator
         run: dotnet add ContactManager/ContactManager.csproj package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
@@ -35,7 +32,7 @@ jobs:
         run: dotnet tool install -g dotnet-aspnet-codegenerator
 
       - name: Navigate to project directory
-        run: cd ContactManager
+        run: cd home/runner/work/dnetauthapp/ContactManager
 
       - name: Scaffold Models
         run: dotnet-aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
