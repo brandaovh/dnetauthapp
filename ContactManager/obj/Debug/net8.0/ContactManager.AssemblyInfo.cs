@@ -12,11 +12,11 @@ using System;
 using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-ContactManager-8eba7723-1162-431e-b77f-c23ecd9c600a")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-ContactManager-55623cea-bf19-4745-9e59-d501706ad778")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ContactManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48db5a0097ae348769a1faf02336a62b63d4629b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ContactManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ContactManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
