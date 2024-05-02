@@ -33,23 +33,19 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Install EF Core CLI
-        run: dotnet tool install --global dotnet-ef
-
-      - name: Get Runner IP Address
-        run: |
-          echo "Runner IP Address: $RUNNER_IP_ADDRESS"
-        env:
-          RUNNER_IP_ADDRESS: ${{ runner.ip }}
+      - name: Run EF 
+        run: | 
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
 
       - name: Drop database
-        run: dotnet ef database drop -f --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
+        run: dotnet ef database drop -f -p ContactManager --connection '${{ secrets.DB_CONNECTION_STRING }}'
 
       - name: Add initial migration
-        run: dotnet ef migrations add initial --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
+        run: dotnet ef migrations add initial -p ContactManager --connection '${{ secrets.DB_CONNECTION_STRING }}'
 
       - name: Execute EF Core migrations
-        run: dotnet ef database update --project /home/runner/work/dnetauthapp/dnetauthapp/ContactManager/ContactManager.csproj
+        run: dotnet ef database update -p ContactManager --connection '${{ secrets.DB_CONNECTION_STRING }}'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
