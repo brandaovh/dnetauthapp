@@ -34,6 +34,15 @@ jobs:
       - name: Installing CodeGenerator
         run: dotnet tool install -g dotnet-aspnet-codegenerator
 
+      - name: Scaffold Models
+        run: dotnet-aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
+
+      - name: Drop database
+        run: dotnet ef migrations add initial
+
+      - name: Update database
+        run: dotnet ef database update
+
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
