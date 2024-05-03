@@ -44,12 +44,11 @@ jobs:
           dotnet tool install --global dotnet-ef
           dotnet tool restore
 
+      - name: Drop database
+        run: dotnet ef database drop -f -p ContactManager
 
-      # - name: Drop database
-      #   run: dotnet ef database drop -f -p ContactManager
-
-      # - name: Execute database update
-      #   run: dotnet ef database update -p ContactManager
+      - name: Execute database update
+        run: dotnet ef database update -p ContactManager
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
