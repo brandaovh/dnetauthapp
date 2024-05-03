@@ -33,14 +33,14 @@ jobs:
       - name: Load secret password for test users
         run: echo "SEEDUSERPW=${{ secrets.SEEDUSERPW }}" >> $GITHUB_ENV
 
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
       # - name: Drop database
       #   run: dotnet ef database drop -f -p ContactManager
 
       - name: Execute database update
         run: dotnet ef database update -p ContactManager
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
