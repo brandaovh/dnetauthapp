@@ -33,6 +33,12 @@ jobs:
       - name: Load secret password for test users
         run: echo "SEEDUSERPW=${{ secrets.SEEDUSERPW }}" >> $GITHUB_ENV
 
+      # - name: Drop database
+      #   run: dotnet ef database drop -f -p ContactManager
+
+      - name: Execute database update
+        run: dotnet ef database update -p ContactManager
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
@@ -43,12 +49,6 @@ jobs:
         run: | 
           dotnet tool install --global dotnet-ef
           dotnet tool restore
-
-      - name: Drop database
-        run: dotnet ef database drop -f -p ContactManager
-
-      - name: Execute database update
-        run: dotnet ef database update -p ContactManager
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
