@@ -27,10 +27,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Set database connection string and seed user pw environment variables
-        run: | 
-          echo "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}" >> $GITHUB_ENV
-          dotnet run --seed-user-pw "${{ secrets.SEEDUSERPW }}" -p ContactManager 
+      - name: Set database connection string environment variable
+        run: echo "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}" >> $GITHUB_ENV
+
+      - name: Load secret password for test users
+        run: dotnet run --seed-user-pw "${{ secrets.SEEDUSERPW }}" -p ContactManager
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
