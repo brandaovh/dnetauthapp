@@ -29,6 +29,15 @@ builder.Services.AddSingleton<IAuthorizationHandler,
 builder.Services.AddSingleton<IAuthorizationHandler,
                       ContactManagerAuthorizationHandler>();
 
+
+// Require authenticated users.
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
 var app = builder.Build();
 
 // Add requirement for secret password
@@ -43,14 +52,6 @@ using (var scope = app.Services.CreateScope())
 
     await SeedData.Initialize(services, testUserPw);
 }
-
-// Require authenticated users.
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -70,6 +71,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapRazorPages();
 
