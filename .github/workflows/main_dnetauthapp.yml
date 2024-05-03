@@ -41,14 +41,14 @@ jobs:
       - name: Set database connection string environment variable
         run: echo "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}" >> $GITHUB_ENV
 
-      - name: Drop database
-        run: dotnet ef database drop -f -p ContactManager
+      - name: Load secret password for test users
+        run: dotnet run --seed-user-pw "${{ secrets.SEED_USER_PW }}"
 
-      - name: Add usedID migration
-        run: dotnet ef migrations add userID_Status -p ContactManager
+      # - name: Drop database
+      #   run: dotnet ef database drop -f -p ContactManager
 
-      - name: Execute database update
-        run: dotnet ef database update -p ContactManager
+      # - name: Execute database update
+      #   run: dotnet ef database update -p ContactManager
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3

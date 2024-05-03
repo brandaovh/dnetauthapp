@@ -12,10 +12,42 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
+// Authorization handlers.
+builder.Services.AddScoped<IAuthorizationHandler,
+                      ContactIsOwnerAuthorizationHandler>();
+
+builder.Services.AddSingleton<IAuthorizationHandler,
+                      ContactAdministratorsAuthorizationHandler>();
+
+builder.Services.AddSingleton<IAuthorizationHandler,
+                      ContactManagerAuthorizationHandler>();
+
 var app = builder.Build();
+
+// Add requirement for secret password
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+    
+    // Retrieve the secret from configuration
+    var testUserPw = builder.Configuration.GetValue<string>("SEED_USER_PW");
+
+    await SeedData.Initialize(services, testUserPw);
+}
+
+// Require authenticated users.
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
 
 // Add seed data
 using (var scope = app.Services.CreateScope())
