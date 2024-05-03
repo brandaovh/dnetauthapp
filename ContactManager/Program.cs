@@ -39,7 +39,7 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
     
     // Retrieve the secret from configuration
-    var testUserPw = builder.Configuration.GetValue<string>("SEED_USER_PW");
+    var testUserPw = builder.Configuration.GetValue<string>("SEEDUSERPW");
 
     await SeedData.Initialize(services, testUserPw);
 }
@@ -51,14 +51,6 @@ builder.Services.AddAuthorization(options =>
         .RequireAuthenticatedUser()
         .Build();
 });
-
-// Add seed data
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    await SeedData.Initialize(services);
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

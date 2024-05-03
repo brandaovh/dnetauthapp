@@ -28,7 +28,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Load secret password for test users
-        run: dotnet run --seed-user-pw "${{ secrets.SEED_USER_PW }}" -p ContactManager
+        run: dotnet run --seed-user-pw "${{ secrets.SEEDUSERPW }}" -p ContactManager
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
