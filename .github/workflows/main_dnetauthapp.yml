@@ -27,7 +27,8 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Load secret password for test users
+      - name: Set database connection string and seed user pw environment variables
+        run: echo "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}" >> $GITHUB_ENV
         run: dotnet run --seed-user-pw "${{ secrets.SEEDUSERPW }}" -p ContactManager
 
       - name: Build with dotnet
@@ -42,7 +43,7 @@ jobs:
           dotnet tool restore
 
       - name: Set database connection string environment variable
-        run: echo "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}" >> $GITHUB_ENV
+
 
       # - name: Drop database
       #   run: dotnet ef database drop -f -p ContactManager
