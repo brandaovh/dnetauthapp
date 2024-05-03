@@ -28,8 +28,9 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Set database connection string and seed user pw environment variables
-        run: echo "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}" >> $GITHUB_ENV
-        run: dotnet run --seed-user-pw "${{ secrets.SEEDUSERPW }}" -p ContactManager
+        run:| 
+          echo "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}" >> $GITHUB_ENV
+          dotnet run --seed-user-pw "${{ secrets.SEEDUSERPW }}" -p ContactManager 
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -41,8 +42,6 @@ jobs:
         run: | 
           dotnet tool install --global dotnet-ef
           dotnet tool restore
-
-      - name: Set database connection string environment variable
 
 
       # - name: Drop database
