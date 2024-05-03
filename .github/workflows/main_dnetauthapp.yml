@@ -49,7 +49,7 @@ jobs:
       #   run: dotnet ef database drop -f -p ContactManager
 
       - name: Database migration
-        run: dotnet ef migrations add userID_Status
+        run: dotnet ef migrations add userID_Status -p ContactManager
 
       - name: Execute database update
         run: dotnet ef database update -p ContactManager
