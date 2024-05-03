@@ -19,6 +19,15 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
+// Require authenticated users below 
+builder.Services.AddControllers(config =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+                     .RequireAuthenticatedUser()
+                     .Build();
+    config.Filters.Add(new AuthorizeFilter(policy));
+});
+
 // Authorization handlers.
 builder.Services.AddScoped<IAuthorizationHandler,
                       ContactIsOwnerAuthorizationHandler>();
@@ -28,15 +37,6 @@ builder.Services.AddSingleton<IAuthorizationHandler,
 
 builder.Services.AddSingleton<IAuthorizationHandler,
                       ContactManagerAuthorizationHandler>();
-
-
-// Require authenticated users.
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});
 
 var app = builder.Build();
 
