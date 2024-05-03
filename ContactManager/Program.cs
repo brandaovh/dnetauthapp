@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ContactManager.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using ContactManager.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
