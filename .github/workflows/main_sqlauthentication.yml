@@ -9,7 +9,16 @@ on:
       - main
   workflow_dispatch:
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -18,6 +27,38 @@ jobs:
         with:
           dotnet-version: '8.x'
           include-prerelease: true
+
+      # - name: Install .NET SDK
+      #   uses: actions/setup-dotnet@v1
+      #   with:
+      #     dotnet-version: '8.0.x'
+
+      # - name: Set database connection string environment variable
+      #   run: echo "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}" >> $GITHUB_ENV
+
+      # - name: Load secret password for test users
+      #   run: echo "SEEDUSERPW=${{ secrets.SEEDUSERPW }}" >> $GITHUB_ENV
+
+      # - name: Build with dotnet
+      #   run: dotnet build --configuration Release
+
+
+      # - name: dotnet publish
+      #   run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      # - name: Run EF 
+      #   run: | 
+      #     dotnet tool install --global dotnet-ef
+      #     dotnet tool restore
+
+      # - name: Drop database
+      #   run: dotnet ef database drop -f -p ContactManager
+
+      # - name: Database migration
+      #   run: dotnet ef migrations add userID_Status -p ContactManager
+
+      # - name: Execute database update
+      #   run: dotnet ef database update -p ContactManager
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
