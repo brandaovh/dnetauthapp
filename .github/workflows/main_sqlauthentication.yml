@@ -66,12 +66,18 @@ jobs:
       # - name: Add initial migration
       #   run: dotnet ef migrations add initial
 
-      - name: Update userID_Status
-        run: dotnet ef migrations add userID_Status
-
-      - name: Update database with migration
-        run: dotnet ef database update
+      # - name: Update database with migration
+      #   run: dotnet ef database update
           
+      - name: Drop database
+        run: dotnet ef database drop -f -p ContactManager
+
+      - name: Database migration
+        run: dotnet ef migrations add userID_Status -p ContactManager
+
+      - name: Execute database update
+        run: dotnet ef database update -p ContactManager
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
