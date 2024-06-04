@@ -36,14 +36,8 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
-      - name: Run EF 
-        run: | 
-          dotnet tool install --global dotnet-ef
-          dotnet tool restore
 
       - name: Install Entity Framework Core CLI tool
         run: dotnet tool install --global dotnet-ef
@@ -64,15 +58,6 @@ jobs:
 
       - name: Update database with migration
         run: dotnet ef database update
-        
-      # - name: Drop database
-      #   run: dotnet ef database drop -f -p ContactManager
-
-      # - name: Database migration
-      #   run: dotnet ef migrations add userID_Status -p ContactManager
-
-      # - name: Execute database update
-      #   run: dotnet ef database update -p ContactManager
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -109,4 +94,3 @@ jobs:
           app-name: 'dnetauthapp'
           slot-name: 'Production'
           package: .
-          
