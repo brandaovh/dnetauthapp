@@ -48,26 +48,26 @@ jobs:
           dotnet tool install --global dotnet-ef 
           dotnet tool restore
 
-      # # Initial DB migration
-      # - name: Install Entity Framework Core CLI tool
-      #   run: dotnet tool install --global dotnet-ef
+      # Initial DB migration
+      - name: Install Entity Framework Core CLI tool
+        run: dotnet tool install --global dotnet-ef
 
-      # - name: Install additional tools and packages
-      #   run: |
-      #     dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
-      #     dotnet tool install -g dotnet-aspnet-codegenerator
+      - name: Install additional tools and packages
+        run: |
+          dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+          dotnet tool install -g dotnet-aspnet-codegenerator
 
-      # - name: Scaffold Razor Page
-      #   run: dotnet-aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
+      - name: Scaffold Razor Page
+        run: dotnet-aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
 
-      # - name: Drop existing database
-      #   run: dotnet ef database drop -f
+      - name: Drop existing database
+        run: dotnet ef database drop -f
 
-      # - name: Add initial migration
-      #   run: dotnet ef migrations add initial
+      - name: Add initial migration
+        run: dotnet ef migrations add initial
 
-      # - name: Update database with migration
-      #   run: dotnet ef database update
+      - name: Update database with migration
+        run: dotnet ef database update
           
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
