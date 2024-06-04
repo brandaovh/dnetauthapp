@@ -70,13 +70,13 @@ jobs:
       #   run: dotnet ef database update
           
       - name: Drop database
-        run: dotnet ef database drop -f -p ContactManager
+        run: dotnet ef database drop -f
 
       - name: Database migration
-        run: dotnet ef migrations add userID_Status -p ContactManager
+        run: dotnet ef migrations add userID_Status
 
       - name: Execute database update
-        run: dotnet ef database update -p ContactManager
+        run: dotnet ef database update
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
