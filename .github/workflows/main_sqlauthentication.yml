@@ -13,6 +13,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ContactManager
+        
     steps:
       - uses: actions/checkout@v4
 
@@ -49,8 +53,8 @@ jobs:
 
       - name: Install additional tools and packages
         run: |
-          dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design -p ContactManager
-          dotnet tool install -g dotnet-aspnet-codegenerator -p ContactManager
+          dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+          dotnet tool install -g dotnet-aspnet-codegenerator
 
       - name: Scaffold Razor Page
         run: dotnet-aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
