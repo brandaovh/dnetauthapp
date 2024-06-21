@@ -8,7 +8,7 @@ using ContactManager.Authorization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? throw new InvalidOperationException("Environment variable 'DB_CONNECTION_STRING' not found on code.");
+var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? throw new InvalidOperationException("Environment variable 'DB_CONNECTION_STRING' not found.");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -18,6 +18,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+
+builder.Services.AddDistributedMemoryCache();
 
 // Require authenticated users below 
 builder.Services.AddControllers(config =>
