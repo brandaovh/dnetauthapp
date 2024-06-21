@@ -48,10 +48,6 @@ jobs:
           dotnet tool install --global dotnet-ef 
           dotnet tool restore
 
-      - name: dotnet migration bundle
-        run: dotnet ef migrations bundle --runtime linux-x64 -p DotNetCoreSqlDb/DotNetCoreSqlDb.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate
-
-
       # Initial DB migration
       # - name: Install Entity Framework Core CLI tool
       #   run: dotnet tool install --global dotnet-ef
